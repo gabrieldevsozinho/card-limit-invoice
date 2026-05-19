@@ -60,7 +60,7 @@ class TransactionServiceTest {
     @Test
     @DisplayName("Deve realizar compra com sucesso quando há limite suficiente")
     void purchase_success() {
-        PurchaseRequest request = new PurchaseRequest(new BigDecimal("200.00"), "Supermercado");
+        PurchaseRequest request = new PurchaseRequest(cardId, new BigDecimal("200.00"), "Supermercado");
 
         when(cardService.getOrThrow(cardId)).thenReturn(activeCard);
         when(limitService.getAvailableLimit(cardId)).thenReturn(new BigDecimal("1000.00"));
@@ -85,7 +85,7 @@ class TransactionServiceTest {
     @Test
     @DisplayName("Deve lançar InsufficientLimitException quando limite é insuficiente")
     void purchase_insufficientLimit() {
-        PurchaseRequest request = new PurchaseRequest(new BigDecimal("500.00"), "Eletrônicos");
+        PurchaseRequest request = new PurchaseRequest(cardId, new BigDecimal("500.00"), "Eletrônicos");
 
         when(cardService.getOrThrow(cardId)).thenReturn(activeCard);
         when(limitService.getAvailableLimit(cardId)).thenReturn(new BigDecimal("100.00"));
@@ -102,7 +102,7 @@ class TransactionServiceTest {
     @DisplayName("Deve lançar BusinessException ao tentar comprar com cartão bloqueado")
     void purchase_blockedCard() {
         activeCard.setStatus(CardStatus.BLOCKED);
-        PurchaseRequest request = new PurchaseRequest(new BigDecimal("100.00"), "Loja");
+        PurchaseRequest request = new PurchaseRequest(cardId, new BigDecimal("100.00"), "Loja");
 
         when(cardService.getOrThrow(cardId)).thenReturn(activeCard);
 

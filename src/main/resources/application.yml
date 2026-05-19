@@ -3,7 +3,7 @@ spring:
     name: card-limit-invoice
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/card_db
+    url: jdbc:postgresql://localhost:5433/card_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -23,7 +23,7 @@ spring:
   data:
     redis:
       host: localhost
-      port: 6379
+      port: 6380
 
 server:
   port: 8082

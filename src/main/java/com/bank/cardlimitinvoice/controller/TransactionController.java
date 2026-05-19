@@ -21,12 +21,11 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    @PostMapping("/{cardId}/purchases")
+    @PostMapping("/purchases")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Realizar compra")
-    public TransactionResponse purchase(@PathVariable UUID cardId,
-                                        @Valid @RequestBody PurchaseRequest request) {
-        return transactionService.purchase(cardId, request);
+    public TransactionResponse purchase(@Valid @RequestBody PurchaseRequest request) {
+        return transactionService.purchase(request.cardId(), request);
     }
 
     @PostMapping("/transactions/{transactionId}/reverse")
